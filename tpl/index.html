@@ -1,24 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My first Vue app</title>
-    <script src="https://unpkg.com/vue"></script>
+    <link rel="icon" type="image/png" href="bread.png">
+    <title>🍞 {{file}}</title>
+
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+
+    <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CMutationObserver"></script>
+
+    <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <script src="//unpkg.com/vue-router"></script>
+    <script src="//unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <div id="app">
-    <div id="content">
+    <h1>🍞 {{file}}</h1>
+    <div class="text">
         {{ text }}
     </div>
-    <div id="command">
-        <input type="text" placeholder="command"/>
+    <div class="command fixed-bottom">
+        <b-form-input type="text" placeholder="command" v-model="command" autofocus @keydown.native.enter="runCommand"></b-form-input>
     </div>
 </div>
 
 <script>
-    var app = new Vue({
+    let app = new Vue({
         el: '#app',
-        data: {
-            text: 'Hello Vue!'
+        data: function() {
+            return {
+                text: 'Issue command `:e <file>` to begin editing',
+                command: '',
+                file: '',
+            }
+        },
+        created: function() {
+            this.editFile('<scratch>');
+        },
+        methods: {
+            runCommand: function() {
+                console.log(`Running command ${this.command}`);
+                this.command = '';
+            },
+            editFile: function(file) {
+                document.title = `🍞 ${file}`  ;
+                this.file = file;
+            }
         }
     })
 </script>

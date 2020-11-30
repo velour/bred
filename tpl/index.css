@@ -1,0 +1,11 @@
+#app {
+    padding: 20px;
+}
+.command input {
+    padding: 20px;
+    width: 100%;
+}
+.text {
+    overflow: auto;
+    padding: 20px;
+}
